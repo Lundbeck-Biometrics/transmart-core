@@ -33,9 +33,9 @@ class BioAssayAnalysisDAO {
     private SequenceReserver sequenceReserver
 
     Long insertOrUpdateBioAssayAnalysis(Map values) {
-        assert values['analysisName'] != null
+        assert values['shortDescription'] != null
         assert values['study'] != null
-        assert values['dataType'] != null
+        assert values['assayDataType'] != null
 
         long bioAssayAnalysisId = getBioAssayAnalysis(values)
         updateBioAssayAnalysis(bioAssayAnalysisId, values)
@@ -67,9 +67,9 @@ class BioAssayAnalysisDAO {
                 SELECT BIO_ASSAY_ANALYSIS_ID
                 FROM $Tables.BIO_ASSAY_ANALYSIS
                 WHERE
-                    ANALYSIS_NAME = :analysisName AND
+                    ANALYSIS_NAME = :shortDescription AND
                     ETL_ID = :study AND
-                    BIO_ASSAY_DATA_TYPE = :dataType
+                    BIO_ASSAY_DATA_TYPE = :assayDataType
         """, values, Long
 
         if (ids.size() == 1) {
@@ -85,9 +85,9 @@ class BioAssayAnalysisDAO {
 
         def ret = insertBioAssayAnalysis.execute(
                 bio_assay_analysis_id: id,
-                analysis_name: values['analysisName'],
+                analysis_name: values['shortDescription'],
                 etl_id: values['study'],
-                bio_assay_data_type: values['dataType'],
+                bio_assay_data_type: values['assayDataType'],
         )
         assert ret == 1
         id
@@ -96,14 +96,13 @@ class BioAssayAnalysisDAO {
     private void updateBioAssayAnalysis(Long id, Map values) {
         def params = [
                 etl_id: values.study,
-                bio_assay_data_type: values.dataType,
-                analysis_name: values.analysisName,
-
-                long_description: values.description,
+                bio_assay_data_type: values.assayDataType,
+                analysis_name: values.shortDescription,
+                long_description: values.longDescription,
                 pvalue_cutoff: values.pvalueCutoff,
                 analysis_create_date: new Date(),
-                short_description: values.analysisNameArchived,
-                analysis_type: values.statisticalTest,
+                short_description: values.shortDescription,
+                analysis_type: values.modelName
         ]
 
         def frag = params.collect { k, v -> "$k = :$k" }.join(', ')
@@ -158,8 +157,15 @@ class BioAssayAnalysisDAO {
                 sample_size: values.sampleSize,
                 population: values.population,
                 model_name: values.modelName,
-                model_desc: values.modelDesc,
+                model_desc: values.modelDescription,
                 research_unit: values.researchUnit,
+                snp_database_id: values.snpDatabaseId,
+                trait: values.traitInv,
+                num_ctrls: values.numCtrls,
+                num_cases: values.numCases,
+                analysis_platform: values.analysisPlatform,
+                path_source: values.pathSource,
+                dataset_release_date: values.datasetReleaseDate
         ]
 
         def frag = params.collect { k, v -> "$k = :$k" }.join(', ')

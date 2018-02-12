@@ -36,6 +36,9 @@ class BioExperimentDAO {
 
     Long findOrCreateBioExperiment(String studyId,
                                    Map<String, Object> extraData = [:]) {
+
+        def studySplit = studyId.split(':')
+
         assert studyId != null
         def intersection = extraData.keySet().intersect(validKeys)
         if (intersection) {
@@ -43,10 +46,11 @@ class BioExperimentDAO {
         }
 
         Map<String, Object> desiredValues = [
-                accession: (Object) studyId,
-                etl_id: "METADATA:$studyId" as String,
-                title: 'Metadata not available',
+                accession: (Object) studySplit[0],
+                etl_id: "METADATA:" + studySplit[0] as String,
+                title: studySplit[1].trim() as String,
         ]
+
         desiredValues.putAll(extraData)
         log.debug("Desired values for bio experiment are: $desiredValues")
 
