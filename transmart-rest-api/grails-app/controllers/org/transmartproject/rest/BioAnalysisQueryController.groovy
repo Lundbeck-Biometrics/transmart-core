@@ -7,9 +7,11 @@ import org.transmartproject.core.exceptions.InvalidArgumentsException
 import org.transmartproject.core.ontology.BioAnalysesResource
 import org.transmartproject.core.ontology.BioAnalysis
 import org.transmartproject.core.ontology.BioAnalysisExt
+import org.transmartproject.core.ontology.Gwas
 import org.transmartproject.rest.marshallers.BioAnalysisWrapper
 import org.transmartproject.rest.marshallers.BioAnalysisExtWrapper
 import org.transmartproject.rest.marshallers.ContainerResponseWrapper
+import org.transmartproject.rest.marshallers.GwasWrapper
 
 import static org.transmartproject.rest.misc.RequestUtils.checkForUnsupportedParams
 
@@ -92,6 +94,29 @@ class BioAnalysisQueryController extends AbstractQueryController {
         )
     }
 
+
+    /**
+     * GWAS endpoint:
+     * <code>/v2/gwas/${id}</code>
+     *
+     * @param id the bioanalysis id
+     *
+     * @return the {@link org.transmartproject.db.biomart.GWAS} object with id ${id}
+     */
+    def gwas(
+            @RequestParam('api_version') String apiVersion,
+            @PathVariable('id') Long id) {
+        if (id == null) {
+            throw new InvalidArgumentsException("Parameter 'id' is missing.")
+        }
+        checkForUnsupportedParams(params, ['id'])
+
+        def gwasdata = bioAnalysesResource.getGwasForId(id)
+
+        respond wrapGwas(apiVersion, gwasdata)
+
+    }
+
     private static wrapBioAnalyses(String apiVersion, Collection<BioAnalysis> source) {
         new ContainerResponseWrapper(
                 key: 'bioanalyses',
@@ -105,6 +130,14 @@ class BioAnalysisQueryController extends AbstractQueryController {
                 key: 'bioanalysesext',
                 container: source.collect { new BioAnalysisExtWrapper(apiVersion: apiVersion, analysis: it) },
                 componentType: BioAnalysisExt,
+        )
+    }
+
+    private static wrapGwas(String apiVersion, Collection<Gwas> source) {
+        new ContainerResponseWrapper(
+                key: 'gwas',
+                container: source.collect { new GwasWrapper(apiVersion: apiVersion, data: it) },
+                componentType: Gwas,
         )
     }
 }

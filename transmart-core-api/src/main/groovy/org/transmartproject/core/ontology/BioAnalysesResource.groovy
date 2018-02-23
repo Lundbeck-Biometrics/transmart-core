@@ -37,5 +37,13 @@ interface BioAnalysesResource {
      */
     BioAnalysisExt getAnalysisExtForId(Long id) throws NoSuchResourceException
 
+    /**
+     * Returns the gwas data for a the given id.
+     *
+     * @param id the database identifier of the analysis
+     * @return the gwas data for the id, if it exists
+     * @throws org.transmartproject.core.exceptions.NoSuchResourceException iff no study can be found with the id
+     */
+    List<Gwas> getGwasForId(Long id) throws NoSuchResourceException
 
 }

@@ -5,6 +5,8 @@ import org.transmartproject.core.exceptions.NoSuchResourceException
 import org.transmartproject.core.ontology.BioAnalysesResource
 import org.transmartproject.core.ontology.BioAnalysis
 import org.transmartproject.core.ontology.BioAnalysisExt
+import org.transmartproject.core.ontology.Gwas
+
 
 @Transactional
 class BioAnalysesService implements BioAnalysesResource {
@@ -27,6 +29,11 @@ class BioAnalysesService implements BioAnalysesResource {
     @Override
     BioAnalysisExt getAnalysisExtForId(Long id) throws NoSuchResourceException {
         org.transmartproject.db.biomart.BioAssayAnalysisExt.findById(id)
+    }
+
+    @Override
+    List<Gwas> getGwasForId(Long id) throws NoSuchResourceException {
+        org.transmartproject.db.biomart.GwasData.findAll { bioAssayAnalysisId == id }
     }
 
 }
