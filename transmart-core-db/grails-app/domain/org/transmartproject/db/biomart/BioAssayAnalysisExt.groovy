@@ -1,6 +1,8 @@
 package org.transmartproject.db.biomart
 
-class BioAssayAnalysisExt {
+import org.transmartproject.core.ontology.BioAnalysisExt
+
+class BioAssayAnalysisExt implements BioAnalysisExt {
 
     static final String PUBLIC = 'PUBLIC'
 

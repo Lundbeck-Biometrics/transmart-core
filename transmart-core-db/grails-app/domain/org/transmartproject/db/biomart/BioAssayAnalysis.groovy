@@ -1,5 +1,3 @@
-/* (c) Copyright 2017, tranSMART Foundation, Inc. */
-
 package org.transmartproject.db.biomart
 
 import org.transmartproject.core.ontology.BioAnalysis
