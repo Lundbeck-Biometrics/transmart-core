@@ -8,4 +8,14 @@ interface BioAnalysis extends ProtectedResource {
 
     String getName()
 
+    String getDataType()
+
+    String getShortDescription()
+
+    String getLongDescription()
+
+    Double getPValueCutoff()
+
+    Long getDataCount()
+
 }
