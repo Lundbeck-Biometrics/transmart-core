@@ -41,6 +41,9 @@ class RestApiUrlMappings {
             "/studies"(method: 'GET', controller: 'studyQuery', action: 'listStudies') {
                 apiVersion = 'v2'
             }
+            "/bioanalyses"(method: 'GET', controller: 'bioAnalysisQuery', action: 'listBioAnalyses') {
+                apiVersion = 'v2'
+            }
             "/studies/$id"(method: 'GET', controller: 'studyQuery', action: 'findStudy') {
                 apiVersion = 'v2'
             }
