@@ -10,4 +10,6 @@ interface Gwas extends ProtectedResource {
 
     Double getLogPValue()
 
+    Double getPValue()
+
 }

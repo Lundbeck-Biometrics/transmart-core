@@ -13,6 +13,7 @@ class GwasData implements Gwas {
     String otherAllele
     Double beta
     Double standardError
+    Double pValue
     Double logPValue
 
     static mapping = {
@@ -21,6 +22,7 @@ class GwasData implements Gwas {
         bioAssayAnalysisId column: 'bio_assay_analysis_id'
         rsId column:'rs_id'
         pValueChar   column: 'p_value_char'
+        pValue column: 'p_value'
         logPValue column: 'log_p_value'
         effectAllele column: 'effect_allele'
         otherAllele column: 'other_allele'
@@ -31,6 +33,10 @@ class GwasData implements Gwas {
 
     @Override String getPValueChar() {
         pValueChar
+    }
+
+    @Override Double getPValue() {
+        pValue
     }
 
     @Override Double getLogPValue() {

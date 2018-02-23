@@ -113,7 +113,7 @@ class BioAnalysisQueryController extends AbstractQueryController {
 
         def gwasdata = bioAnalysesResource.getGwasForId(id)
 
-        respond wrapGwas(apiVersion, gwasdata)
+        respond gwasdata
 
     }
 
