@@ -2428,6 +2428,147 @@ var spec = {
           }
         }
       }
+    },
+    "/v2/bioanalyses": {
+      "get": {
+        "description": "Gets all bionalyses.\n",
+        "tags": [
+          "v2"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of bionalyses\n",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "bioanalyses": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/BioAnalysis"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/bionalyses/{id}": {
+      "get": {
+        "description": "Gets the bioanalysis with id `id`.\n",
+        "tags": [
+          "v2"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of the bioanalysis to fetch",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns one bioanalysis\n",
+            "schema": {
+              "$ref": "#/definitions/BioAnalysis"
+            }
+          },
+          "404": {
+            "description": "BioAnalysis not found\n"
+          }
+        }
+      }
+    },
+    "/v2/bioanalysesext": {
+      "get": {
+        "description": "Gets extra info for all bionalyses.\n",
+        "tags": [
+          "v2"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of bionalyses with the extra info\n",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "bioanalysesext": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/BioAnalysisExt"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/bionalysesext/{id}": {
+      "get": {
+        "description": "Gets the extra info for a bioanalysis with id `id`.\n",
+        "tags": [
+          "v2"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of the bioanalysis to fetch",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns one bioanalysis with the extra info\n",
+            "schema": {
+              "$ref": "#/definitions/BioAnalysisExt"
+            }
+          },
+          "404": {
+            "description": "BioAnalysis not found\n"
+          }
+        }
+      }
+    },
+    "/v2/gwas/{id}": {
+      "get": {
+        "description": "Gets the GWAS data for the bioanalysis with id `id`.\n",
+        "tags": [
+          "v2"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of the bioanalysis to fetch",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns GWAS data for one bioanalysis\n",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Gwas"
+              }
+            }
+          },
+          "404": {
+            "description": "GWAS data for BioAnalysis not found\n"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -2782,6 +2923,59 @@ var spec = {
         },
         "metadata": {
           "$ref": "#/definitions/StudyMetadata"
+        }
+      }
+    },
+    "BioAnalysis": {
+      "type": "object",
+      "properties": {
+        "analysis": {
+          "type": "object",
+          "description": "a map from metadata names to values for a bioanalysis"
+        }
+      }
+    },
+    "BioAnalysisExt": {
+      "type": "object",
+      "properties": {
+        "analysis": {
+          "type": "object",
+          "description": "a map from metadata names to values for a bioanalysis"
+        }
+      }
+    },
+    "Gwas": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "beta": {
+          "type": "number"
+        },
+        "bioAssayAnalysisId": {
+          "type": "integer"
+        },
+        "effectAllele": {
+          "type": "string"
+        },
+        "otherAllele": {
+          "type": "string"
+        },
+        "pValue": {
+          "type": "number"
+        },
+        "pValueChar": {
+          "type": "string"
+        },
+        "logPValue": {
+          "type": "number"
+        },
+        "rsId": {
+          "type": "string"
+        },
+        "standardError": {
+          "type": "number"
         }
       }
     },
