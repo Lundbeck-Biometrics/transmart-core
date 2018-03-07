@@ -19,6 +19,10 @@ class GwasMetadataEntry {
     String study
 
     @NotNull
+    @Size(min = 1, max = 100)
+    String studyId
+
+    @NotNull
     @Size(min = 1, max = 500)
     String shortDescription
 
@@ -31,7 +35,7 @@ class GwasMetadataEntry {
 
     @NotNull
     @Pattern(regexp = 'GWAS', message = '{gwasDataTypes}')
-    String dataType
+    String assayDataType
 
     @NotNull
     @Size(max = 500)
@@ -67,7 +71,7 @@ class GwasMetadataEntry {
     @Size(max = 500)
     String analysisPlatform
 
-    @Pattern(regexp = '1[8-9]', message = '{supportedGenomeVersions}')
+    @Pattern(regexp = '1[8-9]|38', message = '{supportedGenomeVersions}')
     String genomeVersion
 
     @Size(max = 20)
@@ -81,4 +85,31 @@ class GwasMetadataEntry {
 
     @Size(max = 20)
     String datasetReleaseDate
+
+    // Variables listed below are only there to keep tranSMART-batch process happy!
+    @Size(min = 1, max = 500)
+    String analysisName
+
+    @Size(min = 1, max = 500)
+    String analysisNameArchived
+
+    @Size(max = 2048)
+    String description
+
+    String phenotypeNames
+
+    @Size(max = 250)
+    String phenotypeSourceAndCodes
+
+    @Size(max = 500)
+    String genotypePlatformName // genotype_platform_ids in lz_src_analysis_metadata
+
+    @Size(max = 500)
+    String expressionPlatformName // expression_platform_in lz_src_analysis_metadata
+
+    @Size(max = 500)
+    String modelDesc
+
+    @Size(max = 500)
+    String dataType
 }

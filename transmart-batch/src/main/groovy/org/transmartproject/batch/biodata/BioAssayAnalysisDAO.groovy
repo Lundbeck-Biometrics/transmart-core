@@ -63,12 +63,13 @@ class BioAssayAnalysisDAO {
     }
 
     private Long getBioAssayAnalysis(Map values) {
+
         def ids = jdbcTemplate.queryForList """
                 SELECT BIO_ASSAY_ANALYSIS_ID
                 FROM $Tables.BIO_ASSAY_ANALYSIS
                 WHERE
                     ANALYSIS_NAME = :shortDescription AND
-                    ETL_ID = :study AND
+                    ETL_ID = :studyId AND
                     BIO_ASSAY_DATA_TYPE = :assayDataType
         """, values, Long
 
@@ -86,7 +87,7 @@ class BioAssayAnalysisDAO {
         def ret = insertBioAssayAnalysis.execute(
                 bio_assay_analysis_id: id,
                 analysis_name: values['shortDescription'],
-                etl_id: values['study'],
+                etl_id: values['studyId'],
                 bio_assay_data_type: values['assayDataType'],
         )
         assert ret == 1
@@ -94,8 +95,9 @@ class BioAssayAnalysisDAO {
     }
 
     private void updateBioAssayAnalysis(Long id, Map values) {
+
         def params = [
-                etl_id: values.study,
+                etl_id: values.studyId,
                 bio_assay_data_type: values.assayDataType,
                 analysis_name: values.shortDescription,
                 long_description: values.longDescription,

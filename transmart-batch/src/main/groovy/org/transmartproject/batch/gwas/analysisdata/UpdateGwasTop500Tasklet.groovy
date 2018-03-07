@@ -25,8 +25,11 @@ class UpdateGwasTop500Tasklet implements Tasklet {
     @Value("#{currentGwasAnalysisContext.bioAssayAnalysisId}")
     private Long bioAssayAnalysisId
 
-    @Value("#{currentGwasAnalysisContext.metadataEntry.analysisName}")
-    private String analysisName
+    //@Value("#{currentGwasAnalysisContext.metadataEntry.analysisName}")
+    //private String analysisName
+
+    @Value("#{currentGwasAnalysisContext.metadataEntry.shortDescription}")
+    private String shortDescription
 
     @Value("#{jobParameters['HG_VERSION']}")
     private String hgVersion
@@ -34,7 +37,8 @@ class UpdateGwasTop500Tasklet implements Tasklet {
     @Override
     RepeatStatus execute(StepContribution contribution,
                          ChunkContext chunkContext) throws Exception {
-        assert analysisName != null
+        assert shortDescription != null
+        //assert analysisName != null
         assert hgVersion != null
 
         /* postgres would be much faster (10 times) with ORDER BY and LIMIT,
@@ -90,7 +94,7 @@ class UpdateGwasTop500Tasklet implements Tasklet {
                 """, [
                         hg_version: hgVersion,
                         baa_id: bioAssayAnalysisId,
-                        analysis_name: analysisName])
+                        analysis_name: shortDescription])
 
         contribution.incrementWriteCount(affected)
 

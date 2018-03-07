@@ -32,6 +32,14 @@ class BioAssayAnalysisExt {
 	String modelDescription
 	String sensitiveFlag
 	String sensitiveDesc
+	String traitInv
+	String numCases
+	String numCtrls
+	String analysisPlatform
+	String snpDatabaseId
+	String pathSource
+	String datasetReleaseDate
+
 	
 	static belongsTo=[bioAssayAnalysis: BioAssayAnalysis]
 
@@ -55,6 +63,13 @@ class BioAssayAnalysisExt {
 			modelDescription column:'MODEL_DESC'
 			sensitiveFlag column:'SENSITIVE_FLAG'
 			sensitiveDesc column:'SENSITIVE_DESC'
+			traitInv column: 'TRAIT'
+			numCtrls column: 'NUM_CTRLS'
+			numCases column: 'NUM_CASES'
+			analysisPlatform column: 'ANALYSIS_PLATFORM'
+			snpDatabaseId column: 'SNP_DATABASE_ID'
+			pathSource column: 'PATH_SOURCE'
+			datasetReleaseDate column: 'DATASET_RELEASE_DATE'
 		}
 	}
 
@@ -71,5 +86,12 @@ class BioAssayAnalysisExt {
 		modelDescription(nullable: true)
 		sensitiveFlag(nullable: true)
 		sensitiveDesc(nullable: true)
+		traitInv(nullable: true)
+		numCtrls(nullable: true)
+		numCases(nullable: true)
+		analysisPlatform(nullable: true)
+		snpDatabaseId(nullable: true)
+		pathSource(nullable: true)
+		datasetReleaseDate(nullable: true)
 	}
 }
